@@ -1,5 +1,5 @@
-# 使用官方Python基础镜像
-FROM python:3.11-slim
+# 使用官方 Python 3.7 镜像
+FROM python:3.7-slim
 
 # 设置工作目录
 WORKDIR /app
@@ -8,17 +8,17 @@ WORKDIR /app
 COPY requirements.txt ./
 
 # 安装依赖
-RUN pip install --no-cache-dir -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple/
+RUN pip install --no-cache-dir -r requirements.txt
 
 # 复制项目所有文件到容器
 COPY . .
 
-# 暴露Flask默认端口
+# 暴露端口
 EXPOSE 5000
 
-# 设置环境变量（关闭Flask调试模式可改为production）
+# 设置环境变量
 ENV FLASK_APP=run.py
-ENV FLASK_ENV=development
+ENV FLASK_ENV=production
 
-# 启动Flask应用
+# 启动 Flask 项目
 CMD ["python", "run.py"]
